@@ -1,9 +1,9 @@
 discos = [
-    [101, "Frank", "amy Winehouse", "Soul"],  
+    [101, "Frank", "amy Winehouse", "Soul"],
     [102, "Back to Black", "amy Winehouse", "Soul"], #mismo nombre
-    [101, "Another ticket", "eric Clapton", "Blues"], #id repetido || crei que era mucho adaptar el codigo para este caso improvable por lo que no lo hice
-    [103, "Medias Negras", "memphis la blusera", "Blues"],
-    [104, "Almendra", "almendra", "Rock"] 
+    [103, "Another ticket", "eric Clapton", "Blues"], #genero repetido
+    [104, "Medias Negras", "memphis la blusera", "Blues"],
+    [105, "Almendra", "almendra", "Rock"] 
 ]
 
 def organizar(disco):
@@ -11,6 +11,8 @@ def organizar(disco):
 
     for i in range(len(discos_r)):
         discos_r[i][2] = discos_r[i][2].capitalize()
+        discos_r[i][1] = discos_r[i][1].capitalize()
+        discos_r[i][3] = discos_r[i][3].capitalize()
 
     discos_o = sorted(discos_r, key=lambda x: (-x[0], x[1]))
 
@@ -44,7 +46,7 @@ def main():
 
 
 def crear(act_org):
-    discos.append([]) 
+    act_org.append([]) 
 
     for col in act_org[0]:
         act_org[len(act_org) - 1].append(0)
@@ -53,7 +55,7 @@ def crear(act_org):
     art = input("Ingrese artista: ")
     gen = input("Ingrese genero: ")
     
-    act_org[len(act_org) - 1][0] = act_org[len(act_org) - 2][0] + 1
+    act_org[len(act_org) - 1][0] = act_org[0][0] + 1
     act_org[len(act_org) - 1][1] = nom
     act_org[len(act_org) - 1][2] = art
     act_org[len(act_org) - 1][3] = gen
