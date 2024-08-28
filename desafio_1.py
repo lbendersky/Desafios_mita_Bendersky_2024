@@ -28,7 +28,7 @@ def calcular_promedio_materias(matriz):
 def mostrar_matriz(matriz):
     for y in range(len(matriz)):
         for x in range(len(matriz[0])):
-            print(f"{matriz[y][x] : ^10}", end=" ")
+            print(f"{matriz[y][x] :^10}", end=" ")
         print()
 
 
