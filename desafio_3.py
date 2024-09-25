@@ -1,9 +1,9 @@
 discos = [
-    [101, "Frank", "amy Winehouse", "Soul"],
+    [101, "Frank", "amy Winehouse", "Soul"],  
     [102, "Back to Black", "amy Winehouse", "Soul"], #mismo nombre
-    [103, "Another ticket", "eric Clapton", "Blues"], #genero repetido
-    [104, "Medias Negras", "memphis la blusera", "Blues"],
-    [105, "Almendra", "almendra", "Rock"] 
+    [101, "Another ticket", "eric Clapton", "Blues"], #id repetido || crei que era mucho adaptar el codigo para este caso improvable por lo que no lo hice
+    [103, "Medias Negras", "memphis la blusera", "Blues"],
+    [104, "Almendra", "almendra", "Rock"] 
 ]
 
 def organizar(disco):
@@ -11,10 +11,8 @@ def organizar(disco):
 
     for i in range(len(discos_r)):
         discos_r[i][2] = discos_r[i][2].capitalize()
-        discos_r[i][1] = discos_r[i][1].capitalize()
-        discos_r[i][3] = discos_r[i][3].capitalize()
 
-    discos_o = sorted(discos_r, key=lambda x: (x[3], x[2], -x[0]))
+    discos_o = sorted(discos_r, key=lambda x: (-x[0], x[1]))
 
     return discos_o
 
@@ -41,26 +39,21 @@ def main():
         elif accion == 4:
             act_disc = eliminar(discos_o)
             ite = 0
-        elif accion == 5:
+        else:
             flag = 1
 
 
 def crear(act_org):
-    act_org.append([]) 
+    discos.append([]) 
 
     for col in act_org[0]:
         act_org[len(act_org) - 1].append(0)
     
-    inter = 0
-    while inter == 0:
-        nom = input("Ingrese nombre del album: ")
-        art = input("Ingrese artista: ")
-        gen = input("Ingrese genero: ")
-
-        if nom.isalpha() == True and art.isalpha() == True and gen.isalpha() == True:
-            inter = 1
+    nom = input("Ingrese nombre del album: ")
+    art = input("Ingrese artista: ")
+    gen = input("Ingrese genero: ")
     
-    act_org[len(act_org) - 1][0] = act_org[0][0] + 1
+    act_org[len(act_org) - 1][0] = act_org[len(act_org) - 2][0] + 1
     act_org[len(act_org) - 1][1] = nom
     act_org[len(act_org) - 1][2] = art
     act_org[len(act_org) - 1][3] = gen
@@ -77,70 +70,65 @@ def leer(org):
 
 
 def actualizar(act_org):
-    inter = 0
+    nro_act = int(input("Ingrese que dato quiere actualizar: 1-id, 2-nombre del album, 3-artista, 4-genero: "))
 
-    while inter == 0:
-        nro_act = int(input("Ingrese que dato quiere actualizar: 1-id, 2-nombre del album, 3-artista, 4-genero: "))
-
-        if nro_act.isnumeric() == True:
-            inter = 1
-            if nro_act == 1:
-                pos = int(input("Ingrese el id que desea cambiar: "))
-
-                band = 0
-                x = -1
-                while band == 0 and x < len(act_org) - 1:
-                    x += 1
-                    if act_org[x][0] == pos:
-                        band = 1
-
-                if band == 1:
-                    act_org[x][0] = int(input("Ingrese el id por el que desea cambiarlo: "))
-                    return act_org
-                else:
-                    print("No se encontro el id")
-            else:
-                pos = int(input("Ingrese el id de la fila que desea cambiar: "))
-
-                band = 0
-                x = -1
-                while band == 0 and x < len(act_org) - 1:
-                    x += 1
-                    if act_org[x][0] == pos:
-                        band = 1
-                if band == 0:
-                    print("No se encontro el id")
-                else:
-                    opcion = int(input("Ingrese el numero perteneciente a la categoria que desea cambiar: 1-nombre, 2-artista, 3-genero "))
-
-                    if opcion == 1:
-                        act_org[x][1] = input("Ingrese el nombre del album por el que reemplazarlo: ")
-                        return act_org
-                    elif opcion == 2:
-                        act_org[x][2] = input("Ingrese el nombre del artista por el que reemplazarlo: ")
-                        return act_org
-                    elif opcion == 3:
-                        act_org[x][3] = input("Ingrese el nombre del genero por el que reemplazarlo: ")
-                        return act_org
-                    else:
-                        print("Numero incorrecto")
-                        inter = 0
-
-
-def eliminar(act_org):
-    band = 0
-    x = -1
-
-    while band == 0 and x < len(act_org) - 1:
+    if nro_act == 1:
         pos = int(input("Ingrese el id que desea cambiar: "))
 
-        x += 1
-        if act_org[x][0] == pos and pos.isnumeric() == True:
-            act_org.pop(x)
+        band = 0
+        x = -1
+        while band == 0 and x < len(act_org) - 1:
+            x += 1
+            if act_org[x][0] == pos:
+                band = 1
+        
+        if band == 1:
+            act_org[x][0] = int(input("Ingrese el id por el que desea cambiarlo: "))
             return act_org
         else:
             print("No se encontro el id")
-            band = 0
- 
+    else:
+        pos = int(input("Ingrese el id de la fila que desea cambiar: "))
+
+        band = 0
+        x = -1
+        while band == 0 and x < len(act_org) - 1:
+            x += 1
+            if act_org[x][0] == pos:
+                band = 1
+        if band == 0:
+            print("No se encontro el id")
+        else:
+            opcion = int(input("Ingrese el numero perteneciente a la categoria que desea cambiar: 1-nombre, 2-artista, 3-genero "))
+
+            if opcion == 1:
+                act_org[x][1] = input("Ingrese el nombre del album por el que reemplazarlo: ")
+                return act_org
+            elif opcion == 2:
+                act_org[x][2] = input("Ingrese el nombre del artista por el que reemplazarlo: ")
+                return act_org
+            elif opcion == 3:
+                act_org[x][3] = input("Ingrese el nombre del genero por el que reemplazarlo: ")
+                return act_org
+            else:
+                print("Numero incorrecto")
+
+
+def eliminar(act_org):
+    pos = int(input("Ingrese el id que desea cambiar: "))
+
+    band = 0
+    x = -1
+    while band == 0 and x < len(act_org) - 1:
+        x += 1
+        if act_org[x][0] == pos:
+            band = 1
+    
+    if band == 1:
+        act_org.pop(x)
+        return act_org
+    else:
+        print("No se encontro el id")
+
 
 main()
